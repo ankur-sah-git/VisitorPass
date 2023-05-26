@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Visitor Pass</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+
+<body style="overflow: hidden; text-overflow: ellipsis">
+  <div class="container" style="max-width: 100%">
+    <form [formGroup]="CrtVstr" (ngSubmit)="onSubmit($event)">
+      <div id="backArrowConatiner" style="gap:5px !important">
+        <!-- <a (click)="goback()">
+          <img id="backArrow" src="../../assets/back_Arrow.svg" /></a> -->
+        <header>Craete Visitor Pass</header>
+      </div>
+      <p style="color: #e62d38; font-size: 14px; font-style: italic; padding-left: 12px;">*Mandatory details</p>
+      <mat-grid-list [cols]="mybreakpoint" (window:resize)="handleSize($event)" rowHeight="85px" gutterSize="15px">
+        <mat-grid-tile>
+          <div class="text-fields">
+            <label class="required">Category</label>
+            <input class="text-fields-input" type="text" id="vstcatg" formControlName="vstcatg" autocomplete="off"
+               required />
+            <div class="text-danger" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
+            <div class="text-danger" *ngIf="Valvstcatg">
+              Please fill category.
+            </div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="text-fields">
+            <label class="required">Vendor/Dealer Code</label>
+            <input class="text-fields-input" type="text" id="vstvdr" formControlName="vstvdr" autocomplete="off"
+              readonly required />
+            <div class="text-danger" *ngIf="Valvstvdr">
+              Please fill vendor/dealer code
+            </div>
+            <div style="color: #fff !important" class="text-danger" *ngIf="errorMessage">
+              -
+            </div>
+          </div>
+        </mat-grid-tile>
+       
+        <mat-grid-tile>
+          <div class="text-fields">
+            <label class="required">Visit Organisation</label>
+            <input class="text-fields-input" type="text" id="vstorgans" formControlName="vstorgans" autocomplete="off"
+              readonly required />
+            <div class="text-danger" *ngIf="Valvstorgas">
+              Please fill visit organisation
+            </div>
+            <div style="color: #fff !important" class="text-danger" *ngIf="errorMessage">
+              -
+            </div>
+          </div>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <div class="text-fields">
+              <label class="required">Proceeding to Department</label>
+              <input class="text-fields-input" type="text" id="vstprcdept" formControlName="vstprcdept" autocomplete="off"
+                readonly required />
+              <div class="text-danger" *ngIf="Valvstprcdept">
+                Please fill proceeding to department
+              </div>
+              <div style="color: #fff !important" class="text-danger" *ngIf="errorMessage">
+                -
+              </div>
+            </div>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <div class="text-fields">
+              <label class="required">Proceeding to Section</label>
+              <input class="text-fields-input" type="text" id="vstprcdsect" formControlName="vstprcdsect" autocomplete="off"
+                readonly required />
+              <div class="text-danger" *ngIf="Valvstprcdsect">
+                Please fill proceeding to section
+              </div>
+              <div style="color: #fff !important" class="text-danger" *ngIf="errorMessage">
+                -
+              </div>
+            </div>
+          </mat-grid-tile>
+
+          <mat-grid-tile [colspan]="mybreakpoint == 4 ? 3 : 1">
+            <div class="text-fields">
+              <div class="Desc-Title">
+                <label class="required" style="display: inline-block; width: 100%; text-align: left">Purpose of Visit</label>
+                <label style="
+                      color: #888888;
+                      display: inline-block;
+                      width: 100%;
+                      text-align: right;
+                    " class="desc-label">Max 100 characters</label>
+              </div>
+  
+              <input class="text-fields-input" type="text" formControlName="vstprpsvst" autocomplete="off"
+                placeholder="Enter your purpose of visit here…" required />
+  
+              <div class="text-danger" *ngIf="Valprpsvst">
+                Please fill purpose of visit
+              </div>
+            </div>
+          </mat-grid-tile>
+      
+        <mat-grid-tile>
+          <div class="text-fields">
+            <label class="required">From Date</label>
+
+            <input class="date_element text-fields-input" type="date" id="vstfrmdte" autocomplete="off"
+              formControlName="vstfrmdte" placeholder="DD-MM-YYYY" required />
+            <div class="text-danger" *ngIf="Valvstfrmdte">
+              Please fill from date
+            </div>
+          </div>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <div class="text-fields">
+              <label class="required">To Date</label>
+              <input class="date_element text-fields-input" type="date" id="vsttodte" autocomplete="off"
+                placeholder="DD-MM-YYYY" formControlName="vsttodte" required />
+              <div class="text-danger" *ngIf="Valvsttodte">
+                Please fill valid to date
+              </div>
+              <div style="color: #fff !important" class="text-danger" *ngIf="errorMessage">
+                -
+              </div>
+            </div>
+          </mat-grid-tile>
+
+        <mat-grid-tile>
+          <div class="text-fields">
+            <label class="required">In Time</label>
+            <input class="time_element text-fields-input" type="time" id="vstintme" autocomplete="off"
+              formControlName="vstintme" placeholder="HH-MM" />
+            <div class="text-danger" *ngIf="Valintme">
+              Please fill in time
+            </div>
+          </div>
+        </mat-grid-tile>
+       
+        <mat-grid-tile>
+          <div class="text-fields">
+            <label class="required">Out Time</label>
+           
+            <input class="time_element text-fields-input" type="time" id="vstouttme" autocomplete="off"
+              formControlName="vstouttme" placeholder="HH:MM" required />
+            <div class="text-danger" *ngIf="Valouttme">
+              Please fill out time
+            </div>
+          </div>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <div class="text-fields">
+            <label class="required">Remarks</label>
+            <input class="text-fields-input" type="text" id="vstremarks" autocomplete="off" formControlName="vstremarks"
+              required />
+            <div class="text-danger" *ngIf="Valvstrmrks">
+              Please fill remarks
+            </div>
+          </div>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <div class="text-fields">
+              <label class="required">Name</label>
+              <input class="text-fields-input" type="text" id="vstnme" autocomplete="off" formControlName="vstnme"
+                required />
+              <div class="text-danger" *ngIf="Valvstnme">
+                Please fill name
+              </div>
+            </div>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <div class="text-fields">
+              <label class="required">Mobile No</label>
+              <input class="text-fields-input" type="text" id="vstmbl" autocomplete="off" formControlName="vstmbl"
+                required />
+              <div class="text-danger" *ngIf="vstmblmsg">
+                Please fill mobile no
+              </div>
+            </div>
+          </mat-grid-tile>
+        
+          <mat-grid-tile>
+            <div class="text-fields">
+              <label class="required">Electronic Gadgets</label>
+              <input class="text-fields-input" type="text" id="vstelcgdgt" autocomplete="off" formControlName="vstelcgdgt"
+                required />
+              <div class="text-danger" *ngIf="Valvstelcgdgt">
+                Please fill electronic gadgets
+              </div>
+            </div>
+          </mat-grid-tile>
+        
+          <mat-grid-tile>
+            <div class="text-fields">
+              <label class="required">Other Gadgets</label>
+              <input class="text-fields-input" type="text" id="vstothgdgt" autocomplete="off" formControlName="vstothgdgt"
+                required />
+              <div class="text-danger" *ngIf="Valvstothgdgt">
+                Please fill other gadgets
+              </div>
+            </div>
+          </mat-grid-tile>
+      </mat-grid-list>
+
+      <!-- <div class="form-btn" style="gap:30px; margin-top:30px;">
+        <button type="submit" name="submit" value="submit" id="submitButton"></button>
+        <button type="submit" name="clear" value="Clear" id="clearButton">
+          
+        </button>
+      </div> -->
+
+      <div class="toast-notification" *ngIf="showNotification" (click)="onCloseClick()">
+        <div style="margin-top: 2px">
+          <mat-icon svgIcon="checkMark"></mat-icon>
+        </div>
+        <div>
+          <p style="margin: 4px 10px">{{ submittedMessage }}</p>
+        </div>
+        <div style="margin-top: 2px; margin-left: auto; cursor: pointer">
+          <mat-icon svgIcon="close" class="icon-display"></mat-icon>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

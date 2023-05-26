@@ -1,0 +1,51 @@
+<header *ngIf="showHeaderFooter">
+  <div id="header">
+    <div id="bigBox">
+      <div id="leftBox">
+        <a [routerLink]="['/']"
+          ><img class="header-logo" src="../assets/tvs_logo_big.png" alt="Logo"
+        /></a>
+      </div>
+      <div>
+        <ul>
+          <li>
+            <div
+              style="
+                display: flex; align-items: center;
+                justify-content: space-around;
+                margin-top: 8px;">
+              <img src="../assets/usericon.png" class="userlogo" />
+              <p class="username" style="font-size: 15px !important; margin: 0;"></p> 
+               <mat-icon
+                svgIcon="chevron-down"
+                id="menu-arrow-down"
+                style="width: 15px"
+              ></mat-icon>
+            </div>
+            <ul class="dropdown">
+              <li><a class="logoutBtn" (click)="logout()" style="font-size:16px !important" >Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="topnav">
+    <div class="left-nav-links">
+      <a class="active" [routerLink]="['/']">Home</a>
+      <a [routerLink]="['/']">Requests </a>
+      <a [routerLink]="['/']">Visitor & Business Directory</a>
+      <a [routerLink]="['/']">Help</a>
+    </div>
+  </div>
+  <div></div>
+</header>
+
+<div [class.mainContent]="showHeaderFooter">
+  <router-outlet (activate)="scrollTop()"> </router-outlet>
+   <app-spinner></app-spinner> 
+</div>
+
+<footer *ngIf="showHeaderFooter" class="footer">
+  <p>©Copyrights TVS Motor Company. All rights reserved.</p>
+</footer>
